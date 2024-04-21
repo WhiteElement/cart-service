@@ -1,0 +1,33 @@
+@cart_service_HostAddress = http://localhost:5134
+
+###
+POST {{cart_service_HostAddress}}/ShoppingList
+Content-Type: application/json
+
+{}
+
+<> 2024-04-13T184245.500.txt
+
+
+
+###
+POST {{cart_service_HostAddress}}/ShoppingList
+Content-Type: application/json
+
+{
+  "name" : ""
+}
+
+<> 2024-04-13T184245-1.500.txt
+<> 2024-04-13T184205.500.tx
+
+###
+POST {{cart_service_HostAddress}}/ShoppingList
+Content-Type: application/json
+
+{
+  "name" : "Einkaufszettel"
+}
+
+###
+GET http://localhost:5134/ShoppingList

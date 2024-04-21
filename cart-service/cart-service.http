@@ -1,0 +1,5 @@
+@cart_service_HostAddress = http://localhost:5134
+
+GET {{cart_service_HostAddress}}/Test
+
+###
