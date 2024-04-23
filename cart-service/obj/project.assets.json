@@ -1022,19 +1022,19 @@
     ]
   },
   "packageFolders": {
-    "/home/manu/.nuget/packages/": {}
+    "C:\\Users\\manue\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/manu/Entwicklung/cart/cart-service/cart-service/cart-service/cart-service.csproj",
+      "projectUniqueName": "C:\\Entwicklung\\Csharp\\cart-service2\\cart-service\\cart-service.csproj",
       "projectName": "cart-service",
-      "projectPath": "/home/manu/Entwicklung/cart/cart-service/cart-service/cart-service/cart-service.csproj",
-      "packagesPath": "/home/manu/.nuget/packages/",
-      "outputPath": "/home/manu/Entwicklung/cart/cart-service/cart-service/cart-service/obj/",
+      "projectPath": "C:\\Entwicklung\\Csharp\\cart-service2\\cart-service\\cart-service.csproj",
+      "packagesPath": "C:\\Users\\manue\\.nuget\\packages\\",
+      "outputPath": "C:\\Entwicklung\\Csharp\\cart-service2\\cart-service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/manu/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\manue\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1094,7 +1094,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/manu/.dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\manue\\.dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
