@@ -9,6 +9,6 @@ public class TestController : ControllerBase
     [HttpGet]
     public string Test()
     {
-        return "Running . . .";
+        return "das ist ein Test";
     }
 }
