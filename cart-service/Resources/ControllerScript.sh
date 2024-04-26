@@ -17,7 +17,7 @@ domain='http://localhost:5134'
 #curl ${domain}/ShoppingList
 
 #GetOne
-#curl ${domain}/ShoppingList/1
+curl ${domain}/ShoppingList/1
 
 #PostOne
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt" }' -H "Content-Type: application/json"
@@ -29,7 +29,17 @@ domain='http://localhost:5134'
 # SHOPPINGITEM
 ###############
 
+#        //TODO
+#            // missing name
+#            // name already in list
+#            // id in shoppingitem is not allowed
+#            // no list with this id
 
+#GetAll
+#curl ${domain}/ShoppingItem
 
+#PostOneToShoppingList
+#curl ${domain}/ShoppingList -d '{"name" : "Supermarkt1" }' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/1 -d '{"name" : "dsfsdfdfd"}' -H "Content-Type: application/json"
 
 echo

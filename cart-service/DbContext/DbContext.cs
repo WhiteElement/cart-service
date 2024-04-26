@@ -20,7 +20,6 @@ public class DbContext : Microsoft.EntityFrameworkCore.DbContext
         modelBuilder.Entity<ShoppingItem>()
             .HasOne(c => c.ShoppingList)
             .WithMany(u => u.Items)
-            .HasForeignKey(c => c.ShoppingListId)
-            .IsRequired();
+            .HasForeignKey(c => c.ShoppingListId);
     }
 }

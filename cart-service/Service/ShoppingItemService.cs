@@ -1,4 +1,7 @@
+using System.Net;
+using cart_service.Auxillary;
 using cart_service.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace cart_service.Service;
 
@@ -25,22 +28,29 @@ public class ShoppingItemService
         return randomItem;
     }
 
-    public async Task<ShoppingItem> AddItemToList(int shoppingListId, ShoppingItem shoppingItem)
+    public async Task<BraunResultWrapper<ShoppingItem>> AddItemToList(int shoppingListId, ShoppingItem shoppingItem)
     {
-        await using var dbContext = new DbContext.DbContext();
-        var shoppingList = dbContext.ShoppingLists.FirstOrDefault(list => list.Id == shoppingListId);
-
-        if (shoppingList == null)
-            throw new KeyNotFoundException(
-                $"Cannot add Item to List because there is no List with Id({shoppingListId}");
+        var result = new BraunResultWrapper<ShoppingItem>();
 
         if (string.IsNullOrEmpty(shoppingItem.Name))
-            throw new ArgumentNullException($"No name for item specified");
+            return result.AddErrorAndReturn("No Name for ShoppingItem specified", HttpStatusCode.UnprocessableContent);
 
+        if (shoppingItem.Id != null)
+            return result.AddErrorAndReturn("Id is not allowed on ShoppingItem", HttpStatusCode.Forbidden);
+
+        await using var dbContext = new DbContext.DbContext();
+        var shoppingList = dbContext.ShoppingLists.Include(shoppingList => shoppingList.Items).FirstOrDefault(list => list.Id == shoppingListId);
+
+        if (shoppingList == null)
+            return result.AddErrorAndReturn($"There is no ShoppingList with Id:{shoppingListId}", HttpStatusCode.Conflict);
         
+        if (shoppingList.Items.Any(item => item.Name == shoppingItem.Name))
+            return result.AddErrorAndReturn($"{shoppingItem.Name} is already in ShoppingList", HttpStatusCode.Forbidden);
+       
         shoppingList.Items.Add(shoppingItem);
         await dbContext.SaveChangesAsync();
 
-        return shoppingItem;
+        result.Data = shoppingItem;
+        return result;
     }
 }

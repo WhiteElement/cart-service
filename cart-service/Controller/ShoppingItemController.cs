@@ -1,3 +1,4 @@
+using cart_service.Auxillary;
 using cart_service.Model;
 using cart_service.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +16,20 @@ public class ShoppingItemController : ControllerBase
         _shoppingItemService = shoppingItemService;
     }
 
-    [HttpGet("/")]
+    [HttpGet()]
     public async Task<List<ShoppingItem>> GetAll()
     {
         return await _shoppingItemService.GetAll();
     }
     
-    [HttpPost("/{shoppingListId:int}")]
-    public async Task<ShoppingItem> AddOne(int shoppingListId, [FromBody] ShoppingItem shoppingItem)
+    [HttpPost("{shoppingListId:int}")]
+    public async Task<IActionResult> AddOne(int shoppingListId, [FromBody] ShoppingItem shoppingItem)
     {
-        return await _shoppingItemService.AddItemToList(shoppingListId, shoppingItem);
+        var resultWrapper = await _shoppingItemService.AddItemToList(shoppingListId, shoppingItem);
+
+        if (resultWrapper.HasError)
+            return BraunActionResult.Create(resultWrapper);
+
+        return Ok(resultWrapper.Data);
     }
 }

@@ -1,6 +1,7 @@
 using System.Net;
 using cart_service.Auxillary;
 using cart_service.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace cart_service.Service;
 
@@ -17,7 +18,9 @@ public class ShoppingListService
         var result = new BraunResultWrapper<ShoppingList>();
         
         await using var dbContext = new DbContext.DbContext();
-        var queryResult = dbContext.ShoppingLists.FirstOrDefault(list => list.Id == shoppingListId)!;
+        var queryResult = dbContext.ShoppingLists
+            .Include(lists => lists.Items)
+            .FirstOrDefault(list => list.Id == shoppingListId);
 
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (queryResult == null)
