@@ -36,18 +36,21 @@ public class ShoppingListService
         var result = new BraunResultWrapper<ShoppingList>();
 
         if (string.IsNullOrEmpty(list.Name))
-        {
-            result.AddError("No name for ShoppingList provided", HttpStatusCode.UnprocessableContent);
-            return result;
-        }
-        //TODO checken ob es liste schon gibt
-        
+            return result.AddErrorAndReturn("No name for ShoppingList provided", HttpStatusCode.UnprocessableContent);
+
+        if (list.Id != null)
+            return result.AddErrorAndReturn("ShoppingList is not allowed to have an Id", HttpStatusCode.Forbidden);
+            
         await using var dbContext = new DbContext.DbContext();
 
+        if (dbContext.ShoppingLists.Any(shlist => shlist.Name == list.Name))
+            return result.AddErrorAndReturn($"ShoppingList with Name {list.Name} already exists", HttpStatusCode.Forbidden);
+        
         list.LastEdited = DateTime.Now;
         dbContext.ShoppingLists.Add(list);
 
         await dbContext.SaveChangesAsync();
+        
         result.Data = list;
         return result;
     }

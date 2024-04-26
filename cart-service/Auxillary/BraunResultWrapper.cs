@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using cart_service.Model;
 
 namespace cart_service.Auxillary;
 
@@ -20,5 +21,14 @@ public class BraunResultWrapper <T>
       HasError = true;
       ErrorMessage = errorMessage;
       ErrorCode = statusCode;
+   }
+
+   public BraunResultWrapper<T> AddErrorAndReturn(string errorMessage, HttpStatusCode statusCode)
+   {
+      HasError = true;
+      ErrorMessage = errorMessage;
+      ErrorCode = statusCode;
+
+      return this;
    }
 }
