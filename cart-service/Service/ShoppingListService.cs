@@ -40,6 +40,7 @@ public class ShoppingListService
             result.AddError("No name for ShoppingList provided", HttpStatusCode.UnprocessableContent);
             return result;
         }
+        //TODO checken ob es liste schon gibt
         
         await using var dbContext = new DbContext.DbContext();
 
