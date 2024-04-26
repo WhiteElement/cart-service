@@ -13,11 +13,22 @@ public class ShoppingListService
         return dbContext.ShoppingLists.ToList();
     }
 
-    public async Task<ShoppingList> GetList(int shoppingListId)
+    public async Task<BraunResultWrapper<ShoppingList>> GetList(int shoppingListId)
     {
+        var result = new BraunResultWrapper<ShoppingList>();
+        
         await using var dbContext = new DbContext.DbContext();
 
-        return dbContext.ShoppingLists.FirstOrDefault(list => list.Id == shoppingListId)!;
+        var queryResult = dbContext.ShoppingLists.FirstOrDefault(list => list.Id == shoppingListId)!;
+
+        if (queryResult == null)
+        {
+            result.AddError($"No ShoppingList with Id {shoppingListId} found", HttpStatusCode.NotFound);
+            return result;
+        }
+
+        result.Data = queryResult;
+        return result;
     }
 
     public async Task<BraunResultWrapper<ShoppingList>> AddNew(ShoppingList list)

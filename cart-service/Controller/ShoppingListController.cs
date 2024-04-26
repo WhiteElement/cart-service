@@ -18,10 +18,15 @@ public class ShoppingListController(ShoppingListService shoppingListService, Sho
         return await _shoppingListService.GetAll();
     }
     
-    [HttpGet("/{shoppingListId:int}")]
-    public async Task<ShoppingList> GetOne(int shoppingListId)
+    [HttpGet("{shoppingListId}")]
+    public async Task<IActionResult> GetOne(int shoppingListId)
     {
-        return await _shoppingListService.GetList(shoppingListId);
+        var resultWrapper = await _shoppingListService.GetList(shoppingListId);
+
+        if (resultWrapper.HasError)
+            return BraunActionResult.Create(resultWrapper);
+
+        return Ok(resultWrapper.Data);
     }
 
     [HttpPost]
@@ -30,10 +35,7 @@ public class ShoppingListController(ShoppingListService shoppingListService, Sho
         var resultWrapper = await _shoppingListService.AddNew(list);
 
         if (resultWrapper.HasError)
-        {
            return BraunActionResult.Create(resultWrapper);
-        }
-        
 
         return Ok(resultWrapper.Data!);
     }
