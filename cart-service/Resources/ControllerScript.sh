@@ -29,12 +29,6 @@ curl ${domain}/ShoppingList/1
 # SHOPPINGITEM
 ###############
 
-#        //TODO
-#            // missing name
-#            // name already in list
-#            // id in shoppingitem is not allowed
-#            // no list with this id
-
 #GetAll
 #curl ${domain}/ShoppingItem
 
