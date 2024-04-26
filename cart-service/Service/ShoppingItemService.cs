@@ -53,4 +53,12 @@ public class ShoppingItemService
         result.Data = shoppingItem;
         return result;
     }
+
+    public async Task<BraunResultWrapper<T>> DeleteItem<T>(int shoppingItemId)
+    {
+        
+        
+        if (shoppingItemId == null)
+           return  
+    }
 }

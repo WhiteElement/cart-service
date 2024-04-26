@@ -10,7 +10,6 @@ namespace cart_service.Controller;
 public class ShoppingItemController : ControllerBase
 {
     private ShoppingItemService _shoppingItemService;
-
     public ShoppingItemController(ShoppingItemService shoppingItemService)
     {
         _shoppingItemService = shoppingItemService;
@@ -32,4 +31,17 @@ public class ShoppingItemController : ControllerBase
 
         return Ok(resultWrapper.Data);
     }
+    
+    [HttpDelete("{shoppingItemId:int}")]
+    public async Task<IActionResult> DeleteOne(int? shoppingItemId)
+    {
+        var resultWrapper = await _shoppingItemService.DeleteItem(shoppingItemId);
+
+        if (resultWrapper.HasError)
+            return BraunActionResult.Create(resultWrapper);
+
+        return Accepted();
+    }
+    
 }
+
