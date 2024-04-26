@@ -16,12 +16,6 @@ public class BraunResultWrapper <T>
    {
       HasError = false;
    }
-   public void AddError(string errorMessage, HttpStatusCode statusCode)
-   {
-      HasError = true;
-      ErrorMessage = errorMessage;
-      ErrorCode = statusCode;
-   }
 
    public BraunResultWrapper<T> AddErrorAndReturn(string errorMessage, HttpStatusCode statusCode)
    {

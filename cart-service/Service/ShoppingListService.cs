@@ -9,7 +9,6 @@ public class ShoppingListService
     public async Task<List<ShoppingList>> GetAll()
     {
         await using var dbContext = new DbContext.DbContext();
-
         return dbContext.ShoppingLists.ToList();
     }
 
@@ -18,14 +17,11 @@ public class ShoppingListService
         var result = new BraunResultWrapper<ShoppingList>();
         
         await using var dbContext = new DbContext.DbContext();
-
         var queryResult = dbContext.ShoppingLists.FirstOrDefault(list => list.Id == shoppingListId)!;
 
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (queryResult == null)
-        {
-            result.AddError($"No ShoppingList with Id {shoppingListId} found", HttpStatusCode.NotFound);
-            return result;
-        }
+            return result.AddErrorAndReturn($"No ShoppingList with Id {shoppingListId} found", HttpStatusCode.NotFound);
 
         result.Data = queryResult;
         return result;
