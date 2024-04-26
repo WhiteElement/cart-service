@@ -1,3 +1,5 @@
+using System.Net;
+using cart_service.Auxillary;
 using cart_service.Model;
 
 namespace cart_service.Service;
@@ -18,10 +20,15 @@ public class ShoppingListService
         return dbContext.ShoppingLists.FirstOrDefault(list => list.Id == shoppingListId)!;
     }
 
-    public async Task<ShoppingList> AddNew(ShoppingList list)
+    public async Task<BraunResultWrapper<ShoppingList>> AddNew(ShoppingList list)
     {
+        var result = new BraunResultWrapper<ShoppingList>();
+
         if (string.IsNullOrEmpty(list.Name))
-            throw new HttpRequestException("No Name for Shoppinglist specified");
+        {
+            result.AddError("No name for ShoppingList provided", HttpStatusCode.UnprocessableContent);
+            return result;
+        }
         
         await using var dbContext = new DbContext.DbContext();
 
@@ -29,6 +36,7 @@ public class ShoppingListService
         dbContext.ShoppingLists.Add(list);
 
         await dbContext.SaveChangesAsync();
-        return list;
+        result.Data = list;
+        return result;
     }
 }

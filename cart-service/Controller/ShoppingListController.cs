@@ -1,3 +1,5 @@
+using System.Net;
+using cart_service.Auxillary;
 using cart_service.Model;
 using cart_service.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +25,17 @@ public class ShoppingListController(ShoppingListService shoppingListService, Sho
     }
 
     [HttpPost]
-    public async Task<ShoppingList> AddNew(ShoppingList list)
+    public async Task<IActionResult> AddNew(ShoppingList list)
     {
-        return await _shoppingListService.AddNew(list);
+        var resultWrapper = await _shoppingListService.AddNew(list);
+
+        if (resultWrapper.HasError)
+        {
+           return BraunActionResult.Create(resultWrapper);
+        }
+        
+
+        return Ok(resultWrapper.Data!);
     }
 
 }

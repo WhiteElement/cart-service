@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllAccessPolicy");
 app.UseHttpsRedirection();
+app.UseStatusCodePages();
 app.MapControllers();
 
 app.Run();
