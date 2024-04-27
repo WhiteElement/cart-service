@@ -3,15 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cart_service.DbContext;
 
-public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+public class MyDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<ShoppingItem> ShoppingItems { get; set; }
     public DbSet<ShoppingList> ShoppingLists { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase("MyDb");
-        optionsBuilder.LogTo(Console.WriteLine);
+        var connString = Environment.GetCommandLineArgs()
+            .FirstOrDefault(x => x.Contains("server") && x.Contains("database"));
+        optionsBuilder.UseMySQL(connString);
+
+        // optionsBuilder.UseInMemoryDatabase("MyDb");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

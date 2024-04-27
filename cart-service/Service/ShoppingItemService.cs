@@ -9,13 +9,13 @@ public class ShoppingItemService
 {
     public async Task<List<ShoppingItem>> GetAll()
     {
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
         return dbContext.ShoppingItems.ToList();
     }
 
     public async Task<ShoppingItem> AddRandomItem()
     {
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
 
         var randomItem = new ShoppingItem()
         {
@@ -38,7 +38,7 @@ public class ShoppingItemService
         if (shoppingItem.Id != null)
             return result.AddErrorAndReturn("Id is not allowed on ShoppingItem", HttpStatusCode.Forbidden);
 
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
         var shoppingList = dbContext.ShoppingLists.Include(shoppingList => shoppingList.Items).FirstOrDefault(list => list.Id == shoppingListId);
 
         if (shoppingList == null)
@@ -67,14 +67,14 @@ public class ShoppingItemService
             return result.AddErrorAndReturn("No Id for ShoppingItem provided", HttpStatusCode.Forbidden);
 
         Console.WriteLine("========================================================");
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
         var affectedItem = dbContext.ShoppingItems.Where(item => item.Id == shoppingItemId);
         dbContext.ShoppingItems.RemoveRange(affectedItem);
         
         // if (itemToDelete == null)
             // return result.AddErrorAndReturn($"No ShoppingItem with Id:{shoppingItemId} found", HttpStatusCode.NotFound);
 
-        await dbContext.SaveChangesAsync();
+        var rows = await dbContext.SaveChangesAsync();
         return result;
     }
 }

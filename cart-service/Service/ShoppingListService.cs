@@ -9,7 +9,7 @@ public class ShoppingListService
 {
     public async Task<List<ShoppingList>> GetAll()
     {
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
         return dbContext.ShoppingLists.ToList();
     }
 
@@ -17,7 +17,7 @@ public class ShoppingListService
     {
         var result = new BraunResultWrapper<ShoppingList>();
         
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
         var queryResult = dbContext.ShoppingLists
             .Include(lists => lists.Items)
             .FirstOrDefault(list => list.Id == shoppingListId);
@@ -40,7 +40,7 @@ public class ShoppingListService
         if (list.Id != null)
             return result.AddErrorAndReturn("ShoppingList is not allowed to have an Id", HttpStatusCode.Forbidden);
             
-        await using var dbContext = new DbContext.DbContext();
+        await using var dbContext = new DbContext.MyDbContext();
 
         if (dbContext.ShoppingLists.Any(shlist => shlist.Name == list.Name))
             return result.AddErrorAndReturn($"ShoppingList with Name {list.Name} already exists", HttpStatusCode.Forbidden);
