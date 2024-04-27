@@ -54,11 +54,27 @@ public class ShoppingItemService
         return result;
     }
 
-    public async Task<BraunResultWrapper<T>> DeleteItem<T>(int shoppingItemId)
+    public async Task<BraunResultWrapper<ShoppingItem>> DeleteItem(int? shoppingItemId)
     {
+        //TODO
+        // keine Id angegeben
+        // item mit der Id gibt es nicht
+        // prüfen ob wirklich gelöscht
         
+        var result = new BraunResultWrapper<ShoppingItem>();
+
+        if (shoppingItemId == null) 
+            return result.AddErrorAndReturn("No Id for ShoppingItem provided", HttpStatusCode.Forbidden);
+
+        Console.WriteLine("========================================================");
+        await using var dbContext = new DbContext.DbContext();
+        var affectedItem = dbContext.ShoppingItems.Where(item => item.Id == shoppingItemId);
+        dbContext.ShoppingItems.RemoveRange(affectedItem);
         
-        if (shoppingItemId == null)
-           return  
+        // if (itemToDelete == null)
+            // return result.AddErrorAndReturn($"No ShoppingItem with Id:{shoppingItemId} found", HttpStatusCode.NotFound);
+
+        await dbContext.SaveChangesAsync();
+        return result;
     }
 }
