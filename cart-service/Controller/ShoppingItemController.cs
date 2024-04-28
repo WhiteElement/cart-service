@@ -43,5 +43,9 @@ public class ShoppingItemController : ControllerBase
         return Accepted($"deleted ShoppingItem with Id {shoppingItemId}");
     }
     
+    //TODO Patch -> Item umbenennen
+    
+    
+    //TODO Delete mehrere -> viele Items ankreuzen und die alle löschen
 }
 

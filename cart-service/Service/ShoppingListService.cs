@@ -10,7 +10,9 @@ public class ShoppingListService
     public async Task<List<ShoppingList>> GetAll()
     {
         await using var dbContext = new DbContext.MyDbContext();
-        return dbContext.ShoppingLists.ToList();
+        return dbContext.ShoppingLists
+            .Include(list => list.Items)
+            .ToList();
     }
 
     public async Task<BraunResultWrapper<ShoppingList>> GetList(int shoppingListId)
