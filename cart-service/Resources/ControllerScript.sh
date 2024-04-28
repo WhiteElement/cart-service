@@ -42,16 +42,16 @@ domain='http://localhost:5000'
 
 #PostOneToShoppingList
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt1" }' -H "Content-Type: application/json"
-curl ${domain}/ShoppingItem/2 -d '{"name" : "Erdnussbutter"}' -H "Content-Type: application/json"
-curl ${domain}/ShoppingItem/2 -d '{"name" : "Butter"}' -H "Content-Type: application/json"
-curl ${domain}/ShoppingItem/2 -d '{"name" : "Klopapier"}' -H "Content-Type: application/json"
-curl ${domain}/ShoppingItem/2 -d '{"name" : "Wasser"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/2 -d '{"name" : "Erdnussbutter"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/2 -d '{"name" : "Butter"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/2 -d '{"name" : "Klopapier"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/2 -d '{"name" : "Wasser"}' -H "Content-Type: application/json"
 
 #DeleteOne
 
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt1" }' -H "Content-Type: application/json"
 #ech
-#curl ${domain}/ShoppingItem/1 -d '{"name" : "isfds"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/18 -d '{"name" : "isfds"}' -H "Content-Type: application/json"
 #echo
 #curl ${domain}/ShoppingItem/1 -d '{"name" : "dsfds"}' -H "Content-Type: application/json"
 #echo
@@ -60,7 +60,7 @@ curl ${domain}/ShoppingItem/2 -d '{"name" : "Wasser"}' -H "Content-Type: applica
 #curl ${domain}/ShoppingItem/1 -d '{"name" : "wsfds"}' -H "Content-Type: application/json"
 #echo
 #curl ${domain}/ShoppingItem
-#curl ${domain}/ShoppingItem/4 -X DELETE 
+curl ${domain}/ShoppingItem/18 -X DELETE 
 
 #DeleteMultiple
 #curl ${domain}/ShoppingItem/multiple -X DELETE -d [8] -H "Content-Type: application/json"
