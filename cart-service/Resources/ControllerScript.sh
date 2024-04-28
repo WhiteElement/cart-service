@@ -14,7 +14,7 @@ domain='http://localhost:5000'
 ###############
 
 #GetAll
-curl ${domain}/ShoppingList
+#curl ${domain}/ShoppingList
 
 #GetOne
 #curl ${domain}/ShoppingList/1
@@ -30,11 +30,11 @@ curl ${domain}/ShoppingList
 ###############
 
 #GetAll
-curl ${domain}/ShoppingItem
+#curl ${domain}/ShoppingItem
 
 #PostOneToShoppingList
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt1" }' -H "Content-Type: application/json"
-#curl ${domain}/ShoppingItem/1 -d '{"name" : "dsfsdfdfd"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/1 -d '{"name" : "Erdnussbutter"}' -H "Content-Type: application/json"
 
 #DeleteOne
 #        //TODO
@@ -43,7 +43,7 @@ curl ${domain}/ShoppingItem
 #        // prüfen ob wirklich gelöscht
 
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt1" }' -H "Content-Type: application/json"
-#echo
+#ech
 #curl ${domain}/ShoppingItem/1 -d '{"name" : "isfds"}' -H "Content-Type: application/json"
 #echo
 #curl ${domain}/ShoppingItem/1 -d '{"name" : "dsfds"}' -H "Content-Type: application/json"
@@ -53,5 +53,5 @@ curl ${domain}/ShoppingItem
 #curl ${domain}/ShoppingItem/1 -d '{"name" : "wsfds"}' -H "Content-Type: application/json"
 #echo
 #curl ${domain}/ShoppingItem
-#curl ${domain}/ShoppingItem/1 -X DELETE 
+curl ${domain}/ShoppingItem/4 -X DELETE 
 echo

@@ -40,7 +40,7 @@ public class ShoppingItemController : ControllerBase
         if (resultWrapper.HasError)
             return BraunActionResult.Create(resultWrapper);
 
-        return Accepted();
+        return Accepted($"deleted ShoppingItem with Id {shoppingItemId}");
     }
     
 }
