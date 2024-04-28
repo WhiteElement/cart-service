@@ -40,9 +40,6 @@ public class ShoppingListController(ShoppingListService shoppingListService, Sho
         return Ok(resultWrapper.Data!);
     }
 
-    //TODO Delete -> löschen mit allen Items drinnen
-    
-    //TODO Patch -> Namen der Liste ändern
     public async Task<IActionResult> RenameOne(ShoppingList list)
     {
         
@@ -52,5 +49,16 @@ public class ShoppingListController(ShoppingListService shoppingListService, Sho
            return BraunActionResult.Create(resultWrapper);
 
         return Ok(resultWrapper.Data!);
+    }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteOne(int? id)
+    {
+        var resultWrapper = await _shoppingListService.DeleteItem(id);
+
+        if (resultWrapper.HasError)
+            return BraunActionResult.Create(resultWrapper);
+
+        return Ok($"deleted ShoppingList with Id {id}");
     }
 }

@@ -53,7 +53,7 @@ public class ShoppingItemService
         result.Data = shoppingItem;
         return result;
     }
-
+    
     public async Task<BraunResultWrapper<ShoppingItem>> DeleteItem(int? shoppingItemId)
     {
         var result = new BraunResultWrapper<ShoppingItem>();

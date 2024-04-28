@@ -29,6 +29,9 @@ domain='http://localhost:5000'
 #curl ${domain}/ShoppingList -X PATCH -d '{"Id" : 1, "Name" : "Supermarkt"}' -H "Content-Type: application/json"
 #curl ${domain}/ShoppingList -X PATCH -d '{"Name" : "Pfannkuchen"}' -H "Content-Type: application/json"
 
+#DeleteOne
+#==========
+#curl ${domain}/ShoppingList/2 -X DELETE -H "Content-Type: application/json"
 
 ###############
 # SHOPPINGITEM
@@ -39,10 +42,10 @@ domain='http://localhost:5000'
 
 #PostOneToShoppingList
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt1" }' -H "Content-Type: application/json"
-#curl ${domain}/ShoppingItem/1 -d '{"name" : "Erdnussbutter"}' -H "Content-Type: application/json"
-#curl ${domain}/ShoppingItem/1 -d '{"name" : "Butter"}' -H "Content-Type: application/json"
-#curl ${domain}/ShoppingItem/1 -d '{"name" : "Klopapier"}' -H "Content-Type: application/json"
-#curl ${domain}/ShoppingItem/1 -d '{"name" : "Wasser"}' -H "Content-Type: application/json"
+curl ${domain}/ShoppingItem/2 -d '{"name" : "Erdnussbutter"}' -H "Content-Type: application/json"
+curl ${domain}/ShoppingItem/2 -d '{"name" : "Butter"}' -H "Content-Type: application/json"
+curl ${domain}/ShoppingItem/2 -d '{"name" : "Klopapier"}' -H "Content-Type: application/json"
+curl ${domain}/ShoppingItem/2 -d '{"name" : "Wasser"}' -H "Content-Type: application/json"
 
 #DeleteOne
 

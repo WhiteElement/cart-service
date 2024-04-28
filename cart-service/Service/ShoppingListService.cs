@@ -77,4 +77,18 @@ public class ShoppingListService
         result.Data = list;
         return result;
     }
+
+    public async Task<BraunResultWrapper<ShoppingList>> DeleteItem(int? id)
+    {
+        var result = new BraunResultWrapper<ShoppingList>();
+
+        await using var dbContext = new DbContext.MyDbContext();
+        var itemToDelete = await dbContext.ShoppingLists.Where(i => i.Id == id).ExecuteDeleteAsync();
+        
+        if (itemToDelete == 0)
+            return result.AddErrorAndReturn($"No ShoppingList with Id:{id} found", HttpStatusCode.NotFound);
+
+        await dbContext.SaveChangesAsync();
+        return result;
+    }
 }
