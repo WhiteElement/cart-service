@@ -67,4 +67,32 @@ public class ShoppingItemService
         await dbContext.SaveChangesAsync();
         return result;
     }
+
+    public async Task<BraunResultWrapper<string>> DeleteItems(int[] shoppingItemIds)
+    {
+        var result = new BraunResultWrapper<string>();
+
+        if (shoppingItemIds.Length == 0)
+            return result.AddErrorAndReturn("No ShoppingIds provided for Deletion", HttpStatusCode.Conflict);
+        
+        await using var dbContext = new DbContext.MyDbContext();
+
+        List<int> itemsDeleted = new ();
+        foreach (int id in shoppingItemIds)
+        {
+            int row = await dbContext.ShoppingItems.Where(item => item.Id == id).ExecuteDeleteAsync();
+
+            if (row == 1)
+                itemsDeleted.Add(id);
+        }
+
+        result.Data = FormatDeletionResult(shoppingItemIds, itemsDeleted);
+        return result;
+    }
+
+    private string FormatDeletionResult(int[] shoppingItemIds, List<int> itemsDeleted)
+    {
+        return $"Deleted {itemsDeleted.Count} -> {string.Join(",", itemsDeleted)}\n" +
+               $"Input {shoppingItemIds.Length} -> {string.Join(",", shoppingItemIds)}";
+    }
 }

@@ -43,9 +43,21 @@ public class ShoppingItemController : ControllerBase
         return Accepted($"deleted ShoppingItem with Id {shoppingItemId}");
     }
     
+    [HttpDelete("multiple")]
+    public async Task<IActionResult> DeleteMultiple(int[] shoppingItemIds)
+    {
+        var resultWrapper = await _shoppingItemService.DeleteItems(shoppingItemIds);
+
+        if (resultWrapper.HasError)
+            return BraunActionResult.Create(resultWrapper);
+
+        return Ok(resultWrapper.Data);
+    }
+    
+    
     //TODO Patch -> Item umbenennen
+    // [HttpP]
     
     
-    //TODO Delete mehrere -> viele Items ankreuzen und die alle löschen
 }
 

@@ -21,7 +21,7 @@ public class ShoppingListService
         
         await using var dbContext = new DbContext.MyDbContext();
         var queryResult = dbContext.ShoppingLists
-            .Include(lists => lists.Items)
+            .Include(list => list.Items)
             .FirstOrDefault(list => list.Id == shoppingListId);
 
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -55,4 +55,8 @@ public class ShoppingListService
         result.Data = list;
         return result;
     }
+    
+    //TODO Delete -> löschen mit allen Items drinnen
+    
+    //TODO Patch -> Namen der Liste ändern
 }
