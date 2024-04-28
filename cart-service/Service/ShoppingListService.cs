@@ -55,8 +55,26 @@ public class ShoppingListService
         result.Data = list;
         return result;
     }
-    
-    //TODO Delete -> löschen mit allen Items drinnen
-    
-    //TODO Patch -> Namen der Liste ändern
+
+    public async Task<BraunResultWrapper<ShoppingList>> RenameOne(ShoppingList list)
+    {
+        var result = new BraunResultWrapper<ShoppingList>();
+
+        if (list.Id == null)
+            return result.AddErrorAndReturn("No Id provided for ShoppingList to change the name of", HttpStatusCode.Conflict);
+
+        if (string.IsNullOrEmpty(list.Name))
+            return result.AddErrorAndReturn("No Name for Renaming provided", HttpStatusCode.Conflict);
+        
+        await using var dbContext = new DbContext.MyDbContext();
+
+        var affectedRow = await dbContext.ShoppingLists.Where(i => i.Id == list.Id)
+            .ExecuteUpdateAsync(k => k.SetProperty(j => j.Name, list.Name));
+
+        if (affectedRow == 0)
+            return result.AddErrorAndReturn($"No ShoppingList with Id {list.Id} found", HttpStatusCode.NotFound);
+
+        result.Data = list;
+        return result;
+    }
 }

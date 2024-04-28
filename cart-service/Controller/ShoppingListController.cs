@@ -40,4 +40,17 @@ public class ShoppingListController(ShoppingListService shoppingListService, Sho
         return Ok(resultWrapper.Data!);
     }
 
+    //TODO Delete -> löschen mit allen Items drinnen
+    
+    //TODO Patch -> Namen der Liste ändern
+    public async Task<IActionResult> RenameOne(ShoppingList list)
+    {
+        
+        var resultWrapper = await _shoppingListService.RenameOne(list);
+
+        if (resultWrapper.HasError)
+           return BraunActionResult.Create(resultWrapper);
+
+        return Ok(resultWrapper.Data!);
+    }
 }

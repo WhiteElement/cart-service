@@ -98,7 +98,6 @@ public class ShoppingItemService
 
     public async Task<BraunResultWrapper<ShoppingItem>> RenameItem(ShoppingItem shoppingItem)
     {
-       
         var result = new BraunResultWrapper<ShoppingItem>();
 
         if (shoppingItem.Id == null)

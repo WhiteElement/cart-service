@@ -24,6 +24,11 @@ domain='http://localhost:5000'
 #curl ${domain}/ShoppingList -d '{"name" : "Supermarkt", "Id" : 5 }' -H "Content-Type: application/json"
 
 
+#PatchOne
+#=========
+#curl ${domain}/ShoppingList -X PATCH -d '{"Id" : 1, "Name" : "Supermarkt"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingList -X PATCH -d '{"Name" : "Pfannkuchen"}' -H "Content-Type: application/json"
+
 
 ###############
 # SHOPPINGITEM
