@@ -57,16 +57,13 @@ public class ShoppingItemController : ControllerBase
     [HttpPatch]
     public async Task<IActionResult> PatchOne([FromBody] ShoppingItem shoppingItem)
     {
-        var resultWrappper = await _shoppingItemService.RenameItems(shoppingItem);
+        var resultWrappper = await _shoppingItemService.RenameItem(shoppingItem);
 
         if (resultWrappper.HasError)
             return BraunActionResult.Create(resultWrappper);
 
-        return Ok(resultWrappper);
+        return Ok(resultWrappper.Data);
     }
-    //TODO Patch -> Item umbenennen
-    // [HttpP]
-    
     
 }
 

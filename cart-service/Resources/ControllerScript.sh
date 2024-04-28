@@ -55,5 +55,13 @@ domain='http://localhost:5000'
 #curl ${domain}/ShoppingItem/4 -X DELETE 
 
 #DeleteMultiple
-curl ${domain}/ShoppingItem/multiple -X DELETE -d [8] -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem/multiple -X DELETE -d [8] -H "Content-Type: application/json"
+
+#PatchOne
+#=========
+#curl ${domain}/ShoppingItem -X PATCH -d '{"Id" : 9, "Name" : "Pfannkuchen"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem -X PATCH -d '{"Name" : "Pfannkuchen"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem -X PATCH -d '{"Id" : 3, "Name" : "Pfannkuchen"}' -H "Content-Type: application/json"
+#curl ${domain}/ShoppingItem -X PATCH -d '{"Id" : 10, "Name" : "Mineralwasser"}' -H "Content-Type: application/json"
+
 echo

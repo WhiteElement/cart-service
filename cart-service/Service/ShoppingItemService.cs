@@ -95,4 +95,27 @@ public class ShoppingItemService
         return $"Deleted {itemsDeleted.Count} -> {string.Join(",", itemsDeleted)}\n" +
                $"Input {shoppingItemIds.Length} -> {string.Join(",", shoppingItemIds)}";
     }
+
+    public async Task<BraunResultWrapper<ShoppingItem>> RenameItem(ShoppingItem shoppingItem)
+    {
+       
+        var result = new BraunResultWrapper<ShoppingItem>();
+
+        if (shoppingItem.Id == null)
+            return result.AddErrorAndReturn("No Id provided for ShoppingItem to change the name of", HttpStatusCode.Conflict);
+
+        if (string.IsNullOrEmpty(shoppingItem.Name))
+            return result.AddErrorAndReturn("No Name for Renaming provided", HttpStatusCode.Conflict);
+        
+        await using var dbContext = new DbContext.MyDbContext();
+
+        var affectedRow = await dbContext.ShoppingItems.Where(i => i.Id == shoppingItem.Id)
+            .ExecuteUpdateAsync(k => k.SetProperty(j => j.Name, shoppingItem.Name));
+
+        if (affectedRow == 0)
+            return result.AddErrorAndReturn($"No ShoppingItem with Id {shoppingItem.Id} found", HttpStatusCode.NotFound);
+
+        result.Data = shoppingItem;
+        return result;
+    }
 }
